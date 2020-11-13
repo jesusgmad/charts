@@ -76,13 +76,12 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
       {{- end }}
-    volumes:
-      - name: ca-bundle
-        secret:
-          secretName: {{ include "logging-injector.fullname" . }}-ca-bundle
-      - name: server-cert
-        emptyDir: {}
-      - name: sidecar-config
-        configMap:
-          name: {{ include "logging-injector.fullname" . }}-config
-
+      volumes:
+        - name: ca-bundle
+          secret:
+            secretName: {{ include "logging-injector.fullname" . }}-ca-bundle
+        - name: server-cert
+          emptyDir: {}
+        - name: sidecar-config
+          configMap:
+            name: {{ include "logging-injector.fullname" . }}-config
