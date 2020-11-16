@@ -142,7 +142,7 @@ tests:
   - it: rsyslog client sidecar with objectscale rsyslog
     set:
       global.rsyslog_enabled: true
-      global.logging_inject_enabled: false
+      global.logging_injection_enabled: false
       global.tls_enabled: true
       global.objectscale_release_name: objectscale-release
       global.objectscale_namespace: objectscale-ns
@@ -178,7 +178,7 @@ tests:
   - it: rsyslog client sidecar with local rsyslog
     set:
       global.rsyslog_enabled: true
-      global.logging_inject_enabled: false
+      global.logging_injection_enabled: false
       global.tls_enabled: true
     asserts:
       - equal:
@@ -230,7 +230,7 @@ tests:
   - it: logging injection enabled
     set:
       global.rsyslog_enabled: true
-      global.logging_inject_enabled: true
+      global.logging_injection_enabled: true
       global.tls_enabled: true  # create 3 containers
     asserts:
       - equal:

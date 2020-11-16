@@ -25,7 +25,7 @@ global:
   internal_dns: kube-dns.kube-system.svc.cluster.local
   prometheus_alerts_enabled: true
   started: true
-  logging_inject_enabled: false
+  logging_injection_enabled: false
 
 tls:
   enabled: true
