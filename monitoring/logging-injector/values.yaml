@@ -17,6 +17,12 @@
 
 global:
   registry: emccorp
+  # watchAllNamespaces:
+  # - false: webhook is configured to select pods only in logging-injector namespace
+  #          using labels `app.kubernetes.io/namespace: <pod namespace>`
+  #          and `objectscale.dellemc.com/logging-inject: true`
+  # - true: webhook is configured to select all pods with label `objectscale.dellemc.com/logging-inject`
+  #         in all namespaces
   watchAllNamespaces: true
 
 replicas: 1
