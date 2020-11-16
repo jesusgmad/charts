@@ -14,7 +14,7 @@ suite: test configmap
 templates:
   - configmap.yaml
 tests:
-  - it: logReceiver enabled
+  - it: configured log volume name
     set:
       logVolumeName: log
     asserts:
