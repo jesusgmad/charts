@@ -48,3 +48,19 @@ Create chart name and version as used by the chart label.
 {{- define "logging-injector.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "logging-injector.labels" -}}
+app.kubernetes.io/name: {{ include "logging-injector.fullname" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/part-of: {{ .Release.Name }}
+helm.sh/chart: {{ include "logging-injector.chart" . }}
+release: {{ .Release.Name }}
+{{- range $key, $value := .Values.global.labels }}
+{{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end -}}

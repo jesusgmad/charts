@@ -16,10 +16,7 @@ kind: MutatingWebhookConfiguration
 metadata:
   name: "{{ include "logging-injector.webhookname" . }}"
   labels:
-    app.kubernetes.io/name: {{ include "logging-injector.fullname" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "logging-injector.chart" . }}
+{{ include "logging-injector.labels" . | indent 4}}
 webhooks:
   - name: "{{ include "logging-injector.fullname" . }}.{{ .Release.Namespace }}.objectscale.dellemc.com"
     matchPolicy: Equivalent
