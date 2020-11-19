@@ -1,48 +1,44 @@
 ---
-# Default values for Atlas operator
+# Default values for statefuldaemonset operator
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 # These values are overridden when the Atlas operator is included within a subchart
 global:
-  # Name of a Kubernetes secret with Docker credentials for the private registry
-  # registrySecret: ecs-flex-registry
 
-  # The Docker registry hosting containers for the Atlas operator
+  # The Docker registry hosting containers for the statefuldaemonset operator
   registry: emccorp
 
-  # Specifies if the Operator should watch all namespaces for AtlasCluster
+  # Specifies if the Operator should watch all namespaces for statefuldaemonset
   # resources or only the namespace that is is deployed in.
-  watchAllNamespaces: true
+  watchAllNamespaces: false
 
   # Extra labels that will be applied to all resources created by the chart
   labels: {}
 
 image:
-  repository: atlas-operator
-  tag: v0.9
+  repository: statefuldaemonset-operator
+  # tag: stable
   pullPolicy: IfNotPresent
 
 nameOverride: ""
 
 podSecurityContext: {}
-#  fsGroup: 2000
 
 securityContext: {}
-#  capabilities:
-#    drop:
-#    - ALL
-#  readOnlyRootFilesystem: true
-#  runAsNonRoot: true
-#  runAsUser: 1000
+
+## Service account name and whether to create it.
+serviceAccount:
+  create: true
+  name: statefuldaemonset-operator
 
 resources:
   requests:
     cpu: 250m
-    memory: 300Mi
+    memory: 64Mi
   limits:
     cpu: 1
-    memory: 500Mi
+    memory: 128Mi
 
 nodeSelector: {}
 

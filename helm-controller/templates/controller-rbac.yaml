@@ -158,6 +158,12 @@ rules:
     - list
     - get
   - apiGroups:
+      - stateful.ecs.dellemc.com
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
     - "admissionregistration.k8s.io"
     resources:
     - "mutatingwebhookconfigurations"
