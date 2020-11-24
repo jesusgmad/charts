@@ -240,7 +240,7 @@ tests:
           path: spec.template.metadata.labels.app\.kubernetes\.io/namespace
           value: "NAMESPACE"
       - equal:
-          path: spec.template.metadata.annotations.objectscale\.dellemc\.com/logging-release-name
+          path: spec.template.metadata.labels.objectscale\.dellemc\.com/logging-release-name
           value: "RELEASE-NAME"
 #      - notEqual:
 #          path: spec.template.spec.containers[2].name
