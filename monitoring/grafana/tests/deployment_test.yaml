@@ -242,15 +242,15 @@ tests:
       - equal:
           path: spec.template.metadata.annotations.objectscale\.dellemc\.com/logging-release-name
           value: "RELEASE-NAME"
-      - notEqual:
-          path: spec.template.spec.containers[2].name
-          value: rsyslog
-      - notContains:
-          path: spec.template.spec.volumes
-          content:
-            name: rsyslog-config
-            configMap:
-              name: RELEASE-NAME-rsyslog-client-config
+#      - notEqual:
+#          path: spec.template.spec.containers[2].name
+#          value: rsyslog
+#      - notContains:
+#          path: spec.template.spec.volumes
+#          content:
+#            name: rsyslog-config
+#            configMap:
+#              name: RELEASE-NAME-rsyslog-client-config
 ---
 suite: test replicas
 templates:

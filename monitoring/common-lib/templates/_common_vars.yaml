@@ -177,7 +177,7 @@ limits:
 {{- end }}
 
 {{ define "common-lib.logging-inject-annotations" -}}
-{{- if and (.Values.global.rsyslog_enabled) (.Values.global.logging_injection_enabled) }}
+{{- if .Values.global.logging_injection_enabled }}
 objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
 {{- end }}
 {{- end }}
@@ -186,5 +186,11 @@ objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
 {{- if and (.Values.global.rsyslog_enabled) (.Values.global.logging_injection_enabled) }}
 objectscale.dellemc.com/logging-inject: "true"
 app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
+{{- end }}
+{{- end }}
+
+{{ define "common-lib.logging-inject-logrotate-labels" -}}
+{{- if .Values.global.logging_injection_enabled }}
+objectscale.dellemc.com/logging-inject-logrotate: "true"
 {{- end }}
 {{- end }}
