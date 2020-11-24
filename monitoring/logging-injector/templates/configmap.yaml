@@ -35,6 +35,10 @@ data:
             valueFrom:
               fieldRef:
                 fieldPath: spec.nodeName
+          - name: RSYSLOG_DEBUG
+            value: "DebugOnDemand NoStdOut"
+          - name: RSYSLOG_DEBUGLOG
+            value: "/var/log/rsyslog.log"
           - name: RSYSLOG_CLIENT
             value: "true"
           - name: RSYSLOG_SVC_NAME
@@ -72,8 +76,6 @@ data:
         - mountPath: /etc/cleanup_logs
           name: cleanup-script
           subPath: cleanup_logs
-        - mountPath: /crash-dump
-          name: crash-dump
       volumes:
           - name: logrotate-config
             configMap:
