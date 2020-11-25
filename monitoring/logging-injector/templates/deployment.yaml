@@ -32,7 +32,8 @@ spec:
     spec:
       initContainers:
       - name: {{ .Chart.Name }}-init
-        image: "{{ include "common-lib.monitoring_registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Values.global.monitoring_tag }}"
+        #image: "{{ include "common-lib.monitoring_registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Values.global.monitoring_tag }}"
+        image: "asdrepo.isus.emc.com:8099/logging-injector:3.7.0.0-979.452ee4af"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         volumeMounts:
           - mountPath: /etc/injector/ca-bundle
