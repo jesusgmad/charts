@@ -47,7 +47,7 @@ image:
   # pullPolicy: IfNotPresent
 service:
   # Type of Kubernetes service to create: ClusterIP, NodePort, or LoadBalancer
-  type: ClusterIP
+  type: LoadBalancer
 
   # Specify the service port configuration for the vSpherePlugin service
   ports:
