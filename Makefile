@@ -163,7 +163,7 @@ combine-crds:
 create-vmware-package:
 	./vmware/vmware_pack.sh ${SERVICE_ID}
 
-create-manifests: create-vsphere-install create-kahm-app create-decks-app create-manager-app create-logging-injector-app
+create-manifests: create-vsphere-install create-kahm-app create-decks-app create-manager-app #create-logging-injector-app
 
 create-vsphere-install: create-vsphere-templates
 
