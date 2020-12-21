@@ -25,8 +25,8 @@ global:
   watchAllNamespaces: true
 
 # The default docker tag and pull policy for helm-controller services
-## OBSDEF-4650 - patched to specifically pull in latest charts which include monitoring influxdb operator
-tag: 0.61.0-853.a0ceb47
+## MONITORING-1021 - patched to specifically pull in latest charts which include logging injector
+tag: 0.61.0-861.e25f544
 pullPolicy: IfNotPresent
 
 image:
