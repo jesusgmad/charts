@@ -57,7 +57,14 @@ spec:
           value: {{ .Release.Name }}
         {{- if .Values.resources }}
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          {{- if .Values.resources.requests.storage }}
+          requests:
+             ephemeral-storage: {{ .Values.resources.requests.storage }}
+          {{- end }}
+          {{- if .Values.resources.limits.storage }}
+          limits:
+             ephemeral-storage: {{ .Values.resources.limits.storage }}
+          {{- end }}
         {{- end }}
         volumeMounts:
         - mountPath: /dev/shm
@@ -71,8 +78,8 @@ spec:
       - name: dshm
         emptyDir:
           medium: Memory
-      - name: host-data
-        emptyDir: {}
+      - emptyDir: {}
+        name: host-data
       - name: creds-secret-vol
         secret:
           secretName: {{ .Release.Name }}-service-pod-secrets
