@@ -26,7 +26,7 @@ global:
 
 # The default docker tag and pull policy for helm-controller services
 ## OBSDEF-4650 - patched to specifically pull in latest charts which include monitoring influxdb operator
-tag: 0.61.0-853.a0ceb47
+tag: 0.61.0-859.f28ab9d
 pullPolicy: IfNotPresent
 
 image:
