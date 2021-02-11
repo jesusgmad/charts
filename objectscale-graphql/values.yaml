@@ -25,6 +25,9 @@ global:
   watchAllNamespaces: true
   #
   # storageClassName  - set default storageClassName for objectscale-manager/graphql
+
+  rsyslog_client_stdout_enabled: true
+
 #
 # This is the list of available objectstore versions to graphql for UI to configure the store.
 objectStoreAvailableVersions:
