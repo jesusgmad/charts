@@ -1,0 +1,8 @@
+- description: "Disk has added"
+  name: "DiskAdded"
+  issueCategory: Auto
+  matchOnList:
+    - matchon:
+        - label: SymptomID
+          value: 2019
+  notifiers:
