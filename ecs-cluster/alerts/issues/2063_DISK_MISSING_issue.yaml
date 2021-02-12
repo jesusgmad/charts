@@ -1,8 +1,0 @@
-- description: "Disk is missing"
-  name: "DiskMissing"
-  issueCategory: Auto
-  matchOnList:
-    - matchon:
-        - label: SymptomID
-          value: 2063
-  notifiers:
