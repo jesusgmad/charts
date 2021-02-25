@@ -30,7 +30,7 @@ spec:
       securityContext:
         runAsUser: 1001
         runAsGroup: 1001
-        fsGroup: 1000
+        fsGroup: 1001
       containers:
       - name: service-pod
         image: {{.Values.global.registry}}/{{.Values.image.repository | replace "base" .Values.global.product}}:{{default .Values.tag .Values.image.tag}}
