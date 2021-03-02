@@ -37,7 +37,7 @@ spec:
         imagePullPolicy: {{default .Values.pullPolicy .Values.image.pullPolicy }}
         command: ["/opt/dell/epsilon/bin/remote-access.py"]
         ports:
-        - containerPort: 22
+        - containerPort: 21222
           name: ssh
           protocol: TCP
         resources:
