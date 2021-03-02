@@ -8,7 +8,7 @@ DECKSCHARTS := decks kahm supportassist service-pod dellemc-license decks-suppor
 FLEXCHARTS := ecs-cluster objectscale-manager objectscale-vsphere objectscale-graphql helm-controller objectscale-portal objectscale-iam statefuldaemonset-operator influxdb-operator federation logging-injector dcm
 
 # release version
-PACKAGE_VERSION=0.67
+PACKAGE_VERSION=0.68
 FULL_PACKAGE_VERSION=${PACKAGE_VERSION}.0
 FLEXVER=${FULL_PACKAGE_VERSION}
 DECKSVER=2.${PACKAGE_VERSION}
@@ -28,9 +28,10 @@ PACKAGE_NAME        := objectscale-charts-package.tgz
 NAMESPACE            = dellemc-objectscale-system
 TEMP_PACKAGE        := temp_package
 SERVICE_ID           = objectscale
-REGISTRY             = objectscale
-DECKS_REGISTRY       = objectscale
-KAHM_REGISTRY        = objectscale
+REGISTRY             = REGISTRYTEMPLATE
+DECKS_REGISTRY       = REGISTRYTEMPLATE
+KAHM_REGISTRY        = REGISTRYTEMPLATE
+REGISTRYSECRET       = vsphere-docker-secret
 STORAGECLASSNAME     = dellemc-${SERVICE_ID}-highly-available
 STORAGECLASSNAME_VSAN_SNA     = dellemc-${SERVICE_ID}-vsan-sna-thick
 
@@ -188,6 +189,8 @@ create-manager-app: create-temp-package
 	--set global.platform=VMware \
 	--set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
 	--set global.registry=${REGISTRY} \
+	--set hooks.registry=${REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set global.storageClassName=${STORAGECLASSNAME} \
 	--set global.monitoring_registry=${REGISTRY} \
 	--set ecs-monitoring.influxdb.persistence.storageClassName=${STORAGECLASSNAME} \
@@ -209,6 +212,7 @@ create-vsphere-templates: create-temp-package
 	--set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
     --set graphql.enabled=true \
 	--set global.registry=${REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set global.storageClassName=${STORAGECLASSNAME} ${HELM_UI_ARGS} ${HELM_GRAPHQL_ARGS} ${HELM_INSTALLER_ARGS} \
 	-f objectscale-vsphere/values.yaml >> ${TEMP_PACKAGE}/yaml/${MANAGER_MANIFEST}
 
@@ -219,6 +223,7 @@ create-decks-app: create-temp-package
 	--set global.platform=VMware \
 	--set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
 	--set global.registry=${DECKS_REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set decks-support-store.persistentVolume.storageClassName=${STORAGECLASSNAME} \
         ${HELM_DECKS_ARGS} ${HELM_DECKS_SUPPORT_STORE_ARGS} \
 	-f values.yaml > ../${TEMP_PACKAGE}/yaml/decks-app.yaml;
@@ -233,6 +238,7 @@ create-kahm-app: create-temp-package
 	--set global.platform=VMware \
 	--set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
 	--set global.registry=${KAHM_REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set storageClassName=${STORAGECLASSNAME} \
         ${HELM_KAHM_ARGS} \
 	-f values.yaml > ../${TEMP_PACKAGE}/yaml/kahm-app.yaml;
@@ -246,6 +252,7 @@ create-logging-injector-app: create-temp-package
 	helm template --show-only templates/logging-injector-app.yaml logging-injector ../logging-injector -n ${NAMESPACE} \
 	--set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
 	--set global.registry=${REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set global.objectscale_release_name=objectscale-manager \
 	-f values.yaml > ../${TEMP_PACKAGE}/yaml/logging-injector-app.yaml;
 	sed -i 's/createApplicationResource\\":true/createApplicationResource\\":false/g' ${TEMP_PACKAGE}/yaml/logging-injector-app.yaml && \
@@ -271,6 +278,7 @@ create-manager-manifest-ci: create-temp-package
 	helm template objectscale-manager ./objectscale-manager -n ${NAMESPACE} \
 	--set global.platform=Default --set global.watchAllNamespaces=${WATCH_ALL_NAMESPACES} \
 	--set global.registry=${REGISTRY} \
+	--set global.registrySecret=${REGISTRYSECRET} \
 	--set global.storageClassName=${STORAGECLASSNAME} \
 	--set logReceiver.create=false \
 	-f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/yaml/${MANAGER_MANIFEST}
