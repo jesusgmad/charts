@@ -1,0 +1,28 @@
+suite: test service-pod service
+templates:
+  - service.yaml
+tests:
+  - it: should create a service
+    set:
+      global.product: my-product
+    asserts:
+      - isKind:
+          of: Service
+  - it: should have a selector
+    set:
+      global.product: my-product
+    asserts:
+      - equal:
+          path: spec.selector.remote_access
+          value: my-product-service-pod
+  - it: should configure the ssh port
+    set:
+      global.product: my-product
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: ssh
+            port: 22
+            protocol: TCP
+            targetPort: ssh 
