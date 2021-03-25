@@ -10,6 +10,10 @@ metadata:
     "helm.sh/hook": pre-install
     "helm.sh/hook-weight": "-5"
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+{{- if .Values.global.registrySecret }}
+imagePullSecrets:
+  - name: {{ .Values.global.registrySecret }}
+{{- end }}
 ---
 
 kind: ClusterRole
@@ -69,6 +73,10 @@ spec:
     spec:
       serviceAccountName: "objectscale-manager-pre-install"
       restartPolicy: Never
+      {{- if .Values.global.registrySecret }}
+      imagePullSecrets:
+        - name: {{ .Values.global.registrySecret }}
+      {{- end }}
       containers:
         - name: pre-install-job
           image: "{{ .Values.hooks.registry }}/{{.Values.hooks.repository }}:{{ .Values.hooks.tag }}"
